@@ -12,6 +12,9 @@ public class Greeter {
         System.out.print("hello ");
     }
 
+    public static void goodbye(){
+        System.out.println("bye");
+    }
     /**
      * it gets the name from the user input
      * @return the name of the person
