@@ -4,12 +4,15 @@ public class Greeter {
         System.out.print("hello ");
     }
 
-    public static void greeter(String name){
-        System.out.println("hello "+name+" how are you today");
-    }
-
-    public static void main(String[] args) {
-        String name = args[0];
-        greeter(name);
+    public static String getName(){
+        Scanner scan = new Scanner(System.in);
+        String nme = scan.nextLine();
+        scan.close();
+        return nme;
+    } 
+    public static void main(String[] args){
+        String name = getName();
+        greeter();
+        System.out.println(name);
     }
 }
