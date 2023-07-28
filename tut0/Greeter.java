@@ -1,9 +1,14 @@
+import java.util.Scanner;
+
 public class Greeter {
 
     public static void greeter(){
         System.out.print("hello ");
     }
 
+    public static void goodbye(){
+        System.out.println("bye");
+    }
     public static String getName(){
         Scanner scan = new Scanner(System.in);
         String nme = scan.nextLine();
