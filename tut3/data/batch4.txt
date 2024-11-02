@@ -1,0 +1,12 @@
+add 3 40 
+remove 2 20 
+add 3 10 
+remove 1 150 
+remove 3 1150 
+remove 15 30 
+add 3 30 
+add 15 30 
+exchange 3 0 30
+exchange 15 1 30 
+instock 3
+instock 15
