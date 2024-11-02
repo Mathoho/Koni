@@ -1,0 +1,61 @@
+pcb_queue_t *copy_pcb_queue(pcb_queue_t *queue) {
+    // Create a new queue to hold the copied elements
+    pcb_queue_t *new_queue = (pcb_queue_t*) malloc(sizeof(pcb_queue_t));
+    new_queue->first = NULL;
+    new_queue->last = NULL;
+
+    // Traverse the original queue and copy each element to the new queue
+    pcb_t *current_pcb = queue->first;
+    while (current_pcb != NULL) {
+        // Create a new PCB struct to hold the copied data
+        pcb_t *new_pcb = (pcb_t*) malloc(sizeof(pcb_t));
+
+        // Copy the data from the original PCB struct to the new struct
+        new_pcb->process_in_mem = current_pcb->process_in_mem;
+        new_pcb->state = current_pcb->state;
+        new_pcb->next_instruction = current_pcb->next_instruction;
+        new_pcb->priority = current_pcb->priority;
+
+        // Copy the resources allocated to the process
+        resource_t *current_resource = current_pcb->resources;
+        while (current_resource != NULL) {
+            // Create a new resource struct to hold the copied data
+            resource_t *new_resource = (resource_t*) malloc(sizeof(resource_t));
+
+            // Copy the data from the original resource struct to the new struct
+            new_resource->name = current_resource->name;
+            new_resource->available = current_resource->available;
+
+            // Add the new resource struct to the end of the new PCB's resource list
+            new_resource->next = NULL;
+            if (new_pcb->resources == NULL) {
+                new_pcb->resources = new_resource;
+            } else {
+                resource_t *current_new_resource = new_pcb->resources;
+                while (current_new_resource->next != NULL) {
+                    current_new_resource = current_new_resource->next;
+                }
+                current_new_resource->next = new_resource;
+            }
+
+            // Move to the next resource in the original process's resource list
+            current_resource = current_resource->next;
+        }
+
+        // Add the new PCB struct to the end of the new queue
+        new_pcb->next = NULL;
+        if (new_queue->first == NULL) {
+            new_queue->first = new_pcb;
+        } else {
+            new_queue->last->next = new_pcb;
+        }
+        new_queue->last = new_pcb;
+
+        // Move to the next element in the original queue
+        current_pcb = current_pcb->next;
+    }
+
+    // Return a pointer to the new queue
+    return new_queue;
+}
+
